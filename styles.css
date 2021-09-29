@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Gluten-thin';
+    src: url('../Gluten/static/Gluten-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gluten-heavy';
+    src: url('../Gluten/static/Gluten-Medium.ttf') format('truetyep');
+}
+
+body {
+    font-family: Gluten-thin, sans-serif;
+    font-size: 1.5rem;
+    color: white;
+}
+
+input {
+    width: 275px;
+    height: 30px;
+}
+
+button {
+    height: 30px;
+    width: 30px;
+}
+
+.container {
+    height: 1300px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 3fr;
+    grid-template-areas: 
+    'addExercise'
+    'exercise-list'
+    'addData'
+    'chart';
+    background: radial-gradient(circle, rgba(0,44,255,1) 41%, rgba(0,18,144,1) 100%);
+}
+
+.addExercise,
+.exercise-list-container,
+.addData {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addData {
+    flex-direction: column;
+}
+
+.addExercise {
+    grid-area: addExercise;
+}
+
+.addExercise-div {
+    display: flex;
+}
+
+.addData-div {
+    display: flex;
+}
+
+.exercise-list-container {
+    grid-area: exercise-list;
+    flex-direction: column;
+}
+
+.exercise-list-item {
+    width: 275px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    margin-top: 5px;
+}
+
+.chart {
+    grid-area: chart;
+    height:700px;
+    width: 700px;
+    background-color: white;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 50px;
+}
