@@ -1,7 +1,16 @@
 class Exercise {
     constructor(name){
         this.name = name;
-        this.data = [];
+        this._dates = [];
+        this._weights = [];
+    }
+
+    get dates(){
+        return this._dates;
+    }
+
+    get weights(){
+        return this._weights;
     }
 }
 
@@ -60,27 +69,51 @@ function addData(event) {
     let weightMoved = document.getElementById('weight-moved').value;
     // 3)
     let object = Exercises.exercises.find(ele => ele.name === exercise);
-    object.data.push({x: new Date().toString(), y: weightMoved});
+    //object.data.push({x: new Date().toString(), y: weightMoved});
+    object.dates.push(new Date().toString());
+    object.weights.push(weightMoved);
+    console.log(object);
+    console.log(object.dates);
+    console.log(object.weights);
 }
 
 const addDataSubmit = document.getElementById('add-data-submit');
 addDataSubmit.addEventListener('click', addData);
 
-
-// Draw Chart 
-/**
- * 1) Get value from exercises selector
- * 2) find the object in exercises
- * 3) put its data onto the chart
- */
 function drawChart(event){
-    // 1)
+    event.preventDefault();
     let exercise = document.getElementById('exercises').value;
-    // 2)
     let object = Exercises.exercises.find(ele => ele.name === exercise);
-    // 3)
-    const xAxis = object.data.x;
-    const yAxis = object.data.y;
+    let labels = object.dates;
+    let data = object.weights;
 
-    
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Weight moved',
+            data: data,
+            backgroundColor: 
+                'rgba(255, 99, 132, 0.2)',
+             
+            borderColor:
+                'rgba(255, 99, 132, 1)',
+            
+            borderWidth: 1,
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
 }
+
+const graphButton = document.getElementById('graph');
+graphButton.addEventListener('click', drawChart);
