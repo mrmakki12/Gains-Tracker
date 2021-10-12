@@ -1,3 +1,6 @@
+/**
+ * Exercise class keeps data from exercise together in one place
+ */
 class Exercise {
     constructor(name){
         this.name = name;
@@ -14,6 +17,10 @@ class Exercise {
     }
 }
 
+/**
+ * Exercises class is an array of Exercises used to find an Exercise when
+ * its time to chart it
+ */
 class Exercises {
     static exercises = [];
 }
@@ -70,31 +77,26 @@ function addData(event) {
     // 3)
     let object = Exercises.exercises.find(ele => ele.name === exercise);
     //object.data.push({x: new Date().toString(), y: weightMoved});
-    object.dates.push(new Date().toString());
+    object.dates.push(new Date().toDateString());
     object.weights.push(weightMoved);
     console.log(object);
     console.log(object.dates);
     console.log(object.weights);
+    document.getElementById('weight-moved').value = '0';
 }
 
 const addDataSubmit = document.getElementById('add-data-submit');
 addDataSubmit.addEventListener('click', addData);
 
-function drawChart(event){
-    event.preventDefault();
-    let exercise = document.getElementById('exercises').value;
-    let object = Exercises.exercises.find(ele => ele.name === exercise);
-    let labels = object.dates;
-    let data = object.weights;
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+//Chart from chart.js
+var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: labels,
+        labels: [],
         datasets: [{
             label: 'Weight moved',
-            data: data,
+            data: [],
             backgroundColor: 
                 'rgba(255, 99, 132, 0.2)',
              
@@ -107,13 +109,43 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: false
+                }
             }
         }
+    });
+
+    
+/**
+ * How the chart is updated and displayed
+ * @param {*} event 
+ */
+function drawChart(event){
+    event.preventDefault();
+    //Get exercise and its data
+    let exercise = document.getElementById('exercises').value;
+    let object = Exercises.exercises.find(ele => ele.name === exercise);
+    let labels = object.dates;
+    let data = object.weights;
+    //Clear chart
+    myChart.data.labels = [];
+    for(let i = 0; i< data.length; i++) {
+        myChart.data.datasets.forEach(dataset => {
+            dataset.data.pop();
+        });;
     }
-});
+    myChart.update();
+    //push data on chart
+    for(let i = 0; i< data.length; i++) {
+        myChart.data.datasets.forEach(dataset => {
+            dataset.data.push(data[i]);
+        });;
+    }
+    myChart.data.labels = labels;
+    myChart.update();
 
 }
 
 const graphButton = document.getElementById('graph');
 graphButton.addEventListener('click', drawChart);
+

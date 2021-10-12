@@ -4,18 +4,8 @@
     box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Gluten-thin';
-    src: url('../Gluten/static/Gluten-ExtraLight.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Gluten-heavy';
-    src: url('../Gluten/static/Gluten-Medium.ttf') format('truetyep');
-}
-
 body {
-    font-family: Gluten-thin, sans-serif;
+    font-family: 'Gluten', sans-serif;
     font-size: 1.5rem;
     color: white;
 }
@@ -64,6 +54,7 @@ button {
 
 .addExercise-div {
     display: flex;
+    align-items: center;
 }
 
 .addData-div {
@@ -86,10 +77,25 @@ button {
 
 .chart {
     grid-area: chart;
-    height:700px;
-    width: 700px;
+    height: fit-content;
+    width: 80%;
     background-color: white;
     margin: 50px auto;
     padding: 20px;
     border-radius: 50px;
+}
+
+#add-data-submit {
+    background-image: url('./plus.png');
+    background-size: contain;
+}
+
+#graph {
+    background-image: url('./download.png');
+    background-size: contain;
+}
+
+#add-exercise-submit {
+    background-image: url('./plus.png');
+    background-size: contain;
 }
