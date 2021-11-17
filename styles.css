@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+body::-webkit-scrollbar {
+    width: 0.7em;
+    background: white;
+  }
+  
+body::-webkit-scrollbar-thumb {
+    background: #c0392b;
+    height:30px;
+}
+  
+body::-webkit-scrollbar-track-piece {
+     display:none;
+}
+
 body {
     font-family: 'Gluten', sans-serif;
     font-size: 1.5rem;
