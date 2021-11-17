@@ -18,6 +18,38 @@ class Exercise {
 }
 
 /**
+ * Load the exercises and their data already store
+ */
+let loadedExercises = JSON.parse(localStorage.getItem('savedExercises'))
+
+function getExercises () { loadedExercises.forEach((loadedExercise) => {
+    console.log(loadedExercise)
+    let exercise = new Exercise(loadedExercise.name)
+    exercise._dates = loadedExercise._dates
+    exercise._weights = loadedExercise._weights
+    Exercises.exercises.push(exercise)
+    let name = exercise.name
+    let div = document.createElement('div');
+    div.classList.add('exercise-list-item');
+    div.innerHTML = name;
+    // 4)
+    let li = document.createElement('li');
+    let list = document.querySelector('.exercise-list');
+    list.appendChild(li);
+    li.appendChild(div);
+    // 5)
+    let selector = document.getElementById('exercises');
+    let option = document.createElement('option');
+    option.innerHTML = name;
+    selector.appendChild(option);
+    console.log(Exercises.exercises)
+})
+}
+
+window.addEventListener('load', getExercises)
+
+
+/**
  * Exercises class is an array of Exercises used to find an Exercise when
  * its time to chart it
  */
@@ -82,7 +114,9 @@ function addData(event) {
     console.log(object);
     console.log(object.dates);
     console.log(object.weights);
-    document.getElementById('weight-moved').value = '0';
+    document.getElementById('weight-moved').value = '';
+    let jsonExercises = JSON.stringify(Exercises.exercises)
+    let savedExercises1 = localStorage.setItem('savedExercises', JSON.stringify(Exercises.exercises))
 }
 
 const addDataSubmit = document.getElementById('add-data-submit');
